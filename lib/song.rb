@@ -42,6 +42,20 @@ class Song
     end
   end
 
+  def self.alphabetical
+    Song.all.sort { |a, b| a.name <=> b.name }.uniq
+  end 
+
+  def self.new_from_filename(filename)
+    split_song = filename.split("-")
+    artist_name = split_song[0].strip
+    name = split_song[1].strip.delete_suffix!(".mp3")
+    @song = Song.new
+    @song.artist_name = artist_name
+    @song.name = name
+    @song
+  end
+
 
   def save
     self.class.all << self
